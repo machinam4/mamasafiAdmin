@@ -1,0 +1,309 @@
+<template>
+  <main>
+    <div>
+      <h1 class="font-medium leading-tight text-5xl mt-0 mb-2 text-blue-500">Mamasafi HR</h1>
+    </div>
+    <button type="button"
+    @click="toggleModal('AddMamasafiModal')" 
+    class="inline-block px-4 pt-2.5 pb-2 bg-green-600 text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out flex align-center">
+      <PlusIcon class="h-4 w-4"/> &nbsp;
+      New Mamasafi
+    </button>
+    <!-- add service modal -->
+    <ModalVue :isOpen="'AddMamasafiModal'">
+      <template #modalTitle>Add Service Form</template>
+      <template #form>
+       <form>
+          <div class="form-group mb-6">
+            <label for="exampleInputEmail1" class="form-label inline-block mb-2 text-gray-700">Name</label>
+            <input type="text" class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInputEmail1"
+              placeholder="Enter name">
+          </div>
+          <div class="flex justify-center">
+            <div class="mb-3 w-96">
+              <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Upload Profile Picture</label>
+              <input class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFile">
+            </div>
+          </div>
+          <div class="form-group mb-6">
+            <label for="exampleInputEmail1" class="form-label inline-block mb-2 text-gray-700">Phone</label>
+            <input type="text" class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInputEmail1"
+              placeholder="Enter name">
+          </div>
+          <div class="form-group mb-6">
+            <label for="exampleInputEmail1" class="form-label inline-block mb-2 text-gray-700">Id No.</label>
+            <input type="text" class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInputEmail1"
+              placeholder="Enter name">
+          </div>
+          <div class="form-group form-check mb-6">
+            <input type="checkbox"
+              class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+              id="exampleCheck1">
+            <label class="form-check-label inline-block text-gray-800" for="exampleCheck1">Active</label>
+          </div>
+          <div class="mt-4">
+          <button type="reset" 
+          @click="toggleModal('close')"
+          class="
+            px-6
+            py-2.5
+            bg-red-600
+            text-white
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            shadow-md
+            hover:bg-red-700 hover:shadow-lg
+            focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-red-800 active:shadow-lg
+            transition
+            duration-150
+            ease-in-out">cancel</button>
+            <button type="submit" class="
+            ml-3
+            px-6
+            py-2.5
+            bg-green-600
+            text-white
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            shadow-md
+            hover:bg-green-700 hover:shadow-lg
+            focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-green-800 active:shadow-lg
+            transition
+            duration-150
+            ease-in-out">Save</button>
+          </div>
+        </form>
+      </template>
+    </ModalVue>
+    <!-- end add service -->
+    <!-- Edit service modal -->
+    <ModalVue :isOpen="'EditMamasafiModal'">
+      <template #modalTitle>Edit {{EditData.name}}</template>
+      <template #form>
+       <form>
+          <div class="form-group mb-6">
+            <label for="exampleInputEmail1" class="form-label inline-block mb-2 text-gray-700">Name</label>
+            <input type="text" v-model="EditData.name" class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInputEmail1"
+              placeholder="Enter name">
+          </div>
+           <div class="flex justify-center">
+              <div class="mb-3 w-96">
+                <img :src="EditData.image" :alt="EditData.name" class="w-6 h-6">
+              </div>
+              </div>
+            <div class="flex justify-center">
+            
+            <div class="mb-3 w-96">
+              <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Change Display Image</label>
+              <input class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" accept="image/jpeg" id="formFile">
+            </div>
+          </div>
+           <div class="form-group mb-6">
+            <label for="exampleInputEmail1" class="form-label inline-block mb-2 text-gray-700">Phone</label>
+            <input type="text" v-model="EditData.phone" class="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInputEmail1"
+              placeholder="Enter name">
+          </div>
+          <div class="form-group form-check mb-6">
+            <input type="checkbox"
+            name="status"
+              v-model="EditData.status"
+              class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+              id="exampleCheck1">
+            <label class="form-check-label inline-block text-gray-800" for="exampleCheck1">Active</label>
+          </div>
+          <div class="mt-4">
+          <button type="reset" 
+          @click="toggleModal('close')"
+          class="
+            px-6
+            py-2.5
+            bg-red-600
+            text-white
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            shadow-md
+            hover:bg-red-700 hover:shadow-lg
+            focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-red-800 active:shadow-lg
+            transition
+            duration-150
+            ease-in-out">cancel</button>
+            <button type="submit" class="
+            ml-3
+            px-6
+            py-2.5
+            bg-green-600
+            text-white
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            shadow-md
+            hover:bg-green-700 hover:shadow-lg
+            focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-green-800 active:shadow-lg
+            transition
+            duration-150
+            ease-in-out">Save</button>
+          </div>
+        </form>
+      </template>
+    </ModalVue>
+    <!-- end Edit service -->
+
+    <!-- Delete data Modal -->
+    <ModalVue :isOpen="'DeleteMamasafiModal'">
+      <template #modalTitle>
+          <span class="text-red-600">Delete {{DeleteData.name}}</span>       
+      </template>
+      <template #form>
+        <div class="flex flex-col overflow-hidden px-10 py-5">
+          <div class="text-center text-2xl text-red-600">Are you sure ?</div>
+          <div class="text-center font-light text-gray-700 mb-8">
+              Do you really want to delete <span class="text-red-600">{{DeleteData.name}}</span>? This process cannot be undone.
+          </div>
+          <div class="flex justify-center">
+              <button @click="toggleModal('close')"
+                  class="bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-6 py-2 focus:outline-none mx-1">Cancel</button>
+              <button
+                  class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-6 py-2 focus:outline-none mx-1">Delete</button>
+          </div>
+      </div>
+      </template>
+    </ModalVue>
+    <!-- End Delete Data Modal -->
+    <DataTable :tableCols="tableCols" :tableData="services" :routeTo="'Mamasafi'"/>
+  </main>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { PlusIcon } from '@heroicons/vue/outline';
+import { useInterfaceStore } from '../stores/interface';
+import { storeToRefs } from 'pinia';
+import DataTable from '../components/Table.vue';
+import ModalVue from '../components/Modal.vue';
+
+const interfaceStore = useInterfaceStore();
+const { ModalActive, EditData, DeleteData } = storeToRefs(interfaceStore)
+const { toggleModal } = interfaceStore
+
+
+const tableCols =['Emp. ID', 'Image', 'Name','ID No.','Phone', 'Status']
+const services = [
+  { id:1, image:'https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg', name: "Caroline Wanjiku", IDNo: "35694526", phone: "0735694526", status: "1" },
+  { id:2, image:'/imgs/Mamasafi Logo.webp', name: "Evelyne Wairimu", IDNo: "35689523", phone: "0735694526", status: "0" },
+  { id:3, image:'/imgs/Mamasafi Logo.webp', name: "Joyce Wekesa", IDNo: "35689523", phone: "0735694526", status: "1" },
+  { id:4,  image:'/imgs/Mamasafi Logo.webp', name: "Lydia Akinyi", IDNo: "35689523", phone: "0735694526", status: "0" },
+];
+</script>
